@@ -63,7 +63,7 @@ INSERT INTO `role` (`roleID`, `roleName`) VALUES
 CREATE TABLE `translatorLangMap` (
   `userID` int(11) NOT NULL,
   `langID` int(11) NOT NULL,
-  `approverID` int(11) NOT NULL,
+  `approverID` int(11),
   `approvalStatus` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
