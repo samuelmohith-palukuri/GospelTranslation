@@ -74,7 +74,7 @@ CREATE TABLE `transReq` (
   `transReqID` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `requestorID` int(11) NOT NULL,
   `translatorID` int(11) DEFAULT NULL,
-  `souceLanguageID` int(11) NOT NULL,
+  `sourceLanguageID` int(11) NOT NULL,
   `targetLanguageID` int(11) NOT NULL,
   `sourceText` text NOT NULL,
   `translatedText` text,
@@ -145,7 +145,7 @@ ALTER TABLE `transReq`
   ADD KEY `transStatusForeignKey` (`transStatusID`),
   ADD KEY `requestorForeignKey` (`requestorID`),
   ADD KEY `translatorForeignKey` (`translatorID`),
-  ADD KEY `sourceLanguageForeignKey` (`souceLanguageID`),
+  ADD KEY `sourceLanguageForeignKey` (`sourceLanguageID`),
   ADD KEY `targetLanguageForeignKey` (`targetLanguageID`);
 
 --
@@ -170,7 +170,7 @@ ALTER TABLE `User`
 --
 ALTER TABLE `transReq`
   ADD CONSTRAINT `requestorForeignKey` FOREIGN KEY (`requestorID`) REFERENCES `User` (`userID`) ON DELETE CASCADE ON UPDATE NO ACTION,
-  ADD CONSTRAINT `sourceLanguageForeignKey` FOREIGN KEY (`souceLanguageID`) REFERENCES `language` (`langID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `sourceLanguageForeignKey` FOREIGN KEY (`sourceLanguageID`) REFERENCES `language` (`langID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `targetLanguageForeignKey` FOREIGN KEY (`targetLanguageID`) REFERENCES `language` (`langID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `transStatusForeignKey` FOREIGN KEY (`transStatusID`) REFERENCES `transStatus` (`transStatusID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `translatorForeignKey` FOREIGN KEY (`translatorID`) REFERENCES `User` (`userID`) ON UPDATE NO ACTION;
