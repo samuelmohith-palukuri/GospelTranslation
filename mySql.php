@@ -55,6 +55,24 @@ class mySql extends Dbconfig {
         return $res;
     }
 
+    public function dbUpdate($table, $updateRow, $tableValues) {
+        $query = 'update ' . $table . ' SET ';
+
+        $columns = '';
+        $values = '';
+        foreach ($tableValues as $key => $value) {
+            $query .= ($key . ' = ');
+            if (!is_numeric($value)) $value = ('"' . $value . '"');
+            $query .= ($value . ',');
+        }
+        $query = substr($query, 0, -1);
+        $query .= (' where ' . $updateRow['columnName'] . ' = ' . $updateRow['columnVal']);
+
+        $res = $this->dbQuery($query);
+
+        return $res;
+    }
+
     public function dbClose() {
         $this->dbConnection->close();
     }

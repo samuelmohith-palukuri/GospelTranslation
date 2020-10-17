@@ -11,7 +11,7 @@ echo $result;
 echo '<br/>';
 
 //adding user
-$result = $db->addUser(7293333328472, 'godly', 1, 'testpassword', 'sldkjfs');
+$result = $db->addUser(7293333328472, 'gospel translate', 1, 'testpassword', 'sldkjfs');
 echo $result;
 echo '<br/>';
 
@@ -23,7 +23,7 @@ else
 echo '<br/>block';
 
 //adding need
-$result = $db->addTransReq(1, 1, 1, "godly t alias", "my comments");
+$result = $db->addTransReq(1, 1, 1, "gospel translate", "my comments");
 echo '<br/>translation request added';
 
 echo '<br/>';
@@ -44,4 +44,8 @@ foreach($reqs as $req) {
 echo $req['sourceText'];
 echo '<br/>';
 }
+
+//adding a translation
+$reqs = $db->addTranslation(1, 1, 'this is gosepl translate', 'translated', false);
+echo  'translation done';
 ?>

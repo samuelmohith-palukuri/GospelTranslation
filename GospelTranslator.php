@@ -5,10 +5,19 @@ include 'mySql.php';
 class GospelTranslator {
 
     protected $db;
+    public static $transStatusNew = 1;
+    public static $transStatusInProgress = 2;
+    public static $transStatusCompleted = 3;
+    public static $transStatusAccepted = 4;
+    public static $transStatusRejected = 5;
 
     function __construct() {
         $this->db = new mySql();
         $this->db->dbConnect();
+    }
+
+    function __destruct() {
+        if ($this->db) $this->db->dbClose();
     }
 
     //get the role of a user
@@ -108,6 +117,20 @@ class GospelTranslator {
             array_push($translationReq, $req);
         }
         return $translationReq;
+    }
+
+    //function to add translation
+    function addTranslation($transReqID, $translatorID, $translatedText, $transComments, $submit = false) {
+
+        $tableValues = array(
+                            'translatorID' => $translatorID,
+                            'translatedText' => $translatedText,
+                            'commentsTranslator' => $transComments);
+        if ($submit)
+            $tableValues['transStatusID'] = GospelTranslator::$transStatusCompleted;
+        else $tableValues['transStatusID'] = GospelTranslator::$transStatusInProgress;
+
+        return $this->db->dbUpdate('transReq', array('columnName' => 'transReqID', 'columnVal' => $transReqID), $tableValues);
     }
 }
 
