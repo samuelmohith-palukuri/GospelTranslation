@@ -31,7 +31,7 @@ class GospelTranslator {
         $userValues = array('phoneNumber' => $phone,
                         'name' => $name,
                         'roleID' => $roleID,
-                        'password' => $password,
+                        'password' => md5($password),
                         'emailID' => $email);
 
         $userID = $this->db->dbInsert($table, $userValues);
