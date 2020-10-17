@@ -19,6 +19,6 @@ echo '<br/>login';
 else
 echo '<br/>block';
 
-$result = $db->addTransReq(2, 1, 1, "godly t alias", "my comments");
+$result = $db->addTransReq(1, 1, 1, "godly t alias", "my comments");
 echo '<br/>translation request added';
 ?>
