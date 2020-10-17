@@ -4,14 +4,15 @@ include 'mySql.php';
 
 class GospelTranslator {
 
-    protected $dbConnection;
+    protected $db;
 
     function __construct() {
-        $db = new mySql();
-        $this->dbConnection = $db->dbConnect();
+        $this->db = new mySql();
+        $this->db->dbConnect();
     }
+
     function getRole($userID) {
-        $result = $this->dbConnection->query('Select roleID from User where userID=' . $userID);
+        $result = $this->db->dbQuery('Select roleID from User where userID=' . $userID);
         if ($result->num_rows > 0) {
             $finalResult = $result->fetch_assoc();
             return $finalResult['roleID'];
@@ -19,11 +20,22 @@ class GospelTranslator {
     }
 
     function getRoleName($roleID) {
-        $result = $this->dbConnection->query('Select roleName from role where roleID=' . $roleID);
+        $result = $this->db->dbQuery('Select roleName from role where roleID=' . $roleID);
         if ($result->num_rows > 0) {
             $finalResult = $result->fetch_assoc();
             return $finalResult['roleName'];
         } else return -1;
+    }
+
+    function addUser($phone, $name, $roleID, $password, $email) {
+        $userValues = array('phoneNumber' => $phone,
+                        'name' => $name,
+                        'roleID' => $roleID,
+                        'password' => $password,
+                        'emailID' => $email);
+
+        $userID = $this->db->dbInsert($table, $userValues);
+        return $userID;
     }
 }
 

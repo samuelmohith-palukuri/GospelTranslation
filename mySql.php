@@ -36,6 +36,23 @@ class mySql extends Dbconfig {
         return $this->dbConnection->query($query);
     }
 
+    public function dbInsert($table, $tableValues) {
+        $query = 'insert into ' . $table . ' ';
+
+        $columns = '';
+        $values = '';
+        foreach ($tableValues as $key => $value) {
+            $columns .= ($key . ',');
+            $values .= ($value . ',');
+        }
+        $query .= ('(' . $columns . ') VALUES ');
+        $query .= ('(' . $values . ') ');
+
+        $res = $this->dbQuery($query);
+
+        return $res;
+    }
+
     public function dbClose() {
         $this->dbConnection->close();
     }
