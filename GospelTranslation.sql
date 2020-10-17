@@ -71,7 +71,7 @@ CREATE TABLE `translator` (
 --
 
 CREATE TABLE `transReq` (
-  `transReqID` int(11) NOT NULL,
+  `transReqID` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `requestorID` int(11) NOT NULL,
   `translatorID` int(11) DEFAULT NULL,
   `souceLanguageID` int(11) NOT NULL,
@@ -112,7 +112,7 @@ INSERT INTO `transStatus` (`transStatusID`, `transStatus`) VALUES
 --
 
 CREATE TABLE `User` (
-  `userID` int(11) NOT NULL,
+  `userID` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `phoneNumber` bigint(20) NOT NULL,
   `name` varchar(256) NOT NULL,
   `roleID` int(11) NOT NULL DEFAULT '0',
@@ -142,7 +142,6 @@ ALTER TABLE `role`
 -- Indexes for table `transReq`
 --
 ALTER TABLE `transReq`
-  ADD PRIMARY KEY (`transReqID`),
   ADD KEY `transStatusForeignKey` (`transStatusID`),
   ADD KEY `requestorForeignKey` (`requestorID`),
   ADD KEY `translatorForeignKey` (`translatorID`),
@@ -159,7 +158,6 @@ ALTER TABLE `transStatus`
 -- Indexes for table `User`
 --
 ALTER TABLE `User`
-  ADD PRIMARY KEY (`userID`),
   ADD UNIQUE KEY `phoneNumber` (`phoneNumber`),
   ADD KEY `roleForeignKey` (`roleID`);
 
