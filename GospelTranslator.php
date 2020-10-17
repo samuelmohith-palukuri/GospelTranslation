@@ -72,6 +72,42 @@ class GospelTranslator {
                             'transStatusID' => 1);
         return $this->db->dbInsert('transReq', $tableValues);
     }
+
+    //function to get all languages
+    function getLang() {
+        $query = 'select * from language';
+        $languageRes = $this->db->dbQuery($query);
+
+        $languages = array();
+        while ($language = $languageRes->fetch_assoc()) {
+            array_push($languages, $language['languageName']);
+        }
+        return $languages;
+    }
+
+    //function to get the translation requests
+    function getTransReq($translatorID) {
+        $query = 'select * from translatorLangMap where userID=' . $translatorID . ' and approvalStatus=true';
+        $transLangRes = $this->db->dbQuery($query);
+
+        if ($transLangRes->num_rows <= 0) return NULL;
+
+        $transLangList = '';
+        while ($transLang = $transLangRes->fetch_assoc()) {
+            $transLangList .= ($transLang['langID'] . ',');
+        }
+        $transLangList = substr($transLangList, 0, -1);
+
+        $query = 'select * from transReq where sourceLanguageID in (' . $transLangList . ') and targetLanguageID in (' . $transLangList . ')';
+
+        $requests = $this->db->dbQuery($query);
+        $translationReq = array();
+
+        while ($req = $requests->fetch_assoc()) {
+            array_push($translationReq, $req);
+        }
+        return $translationReq;
+    }
 }
 
 ?>
