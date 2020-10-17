@@ -80,7 +80,8 @@ class GospelTranslator {
 
         $languages = array();
         while ($language = $languageRes->fetch_assoc()) {
-            array_push($languages, $language['languageName']);
+            array_push($languages, array('langID' => $language['langID'],
+                                        'languageName' => $language['languageName']));
         }
         return $languages;
     }

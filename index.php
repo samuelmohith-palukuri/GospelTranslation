@@ -29,6 +29,6 @@ echo '<br/>';
 $langs = $db->getLang();
 foreach($langs as $lang){
 echo "find";
-echo $lang;
+echo $lang['langID'] . ' - ' . $lang['languageName'];
 }
 ?>
