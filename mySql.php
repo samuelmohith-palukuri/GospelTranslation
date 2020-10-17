@@ -33,7 +33,7 @@ class Mysql extends Dbconfig {
     }
 
     public function dbQuery($query) {
-        return mysql_query($query);
+        return mysql_query($this->dbConnection, $query);
     }
 
     public function dbClose() {
