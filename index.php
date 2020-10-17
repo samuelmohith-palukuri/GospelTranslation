@@ -7,13 +7,18 @@ $db = new GospelTranslator();
 
 $result = $db->getRoleName(1);
 echo $result;
+echo '<br/>';
 
-$result = $db->addUser('User', 7293333328472, 'godly', 1, 'testpassword', 'sldkjfs');
+$result = $db->addUser(7293333328472, 'godly', 1, 'testpassword', 'sldkjfs');
 echo $result;
+echo '<br/>';
 
 $result = $db->canAllowLogin(7293333328472, 'testpassword');
 if ($result)
-echo 'login';
+echo '<br/>login';
 else
-echo 'block';
+echo '<br/>block';
+
+$result = $db->addTransReq(2, 1, 1, "godly t alias", "my comments");
+echo '<br/>translation request added';
 ?>

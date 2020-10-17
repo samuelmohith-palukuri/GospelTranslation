@@ -30,14 +30,14 @@ class GospelTranslator {
     }
 
     //function to add a user to system
-    function addUser($table, $phone, $name, $roleID, $password, $email) {
+    function addUser($phone, $name, $roleID, $password, $email) {
         $userValues = array('phoneNumber' => $phone,
                         'name' => $name,
                         'roleID' => $roleID,
                         'password' => md5($password),
                         'emailID' => $email);
 
-        $userID = $this->db->dbInsert($table, $userValues);
+        $userID = $this->db->dbInsert('User', $userValues);
         return $userID;
     }
 
@@ -60,6 +60,17 @@ class GospelTranslator {
                 return true;
             else return false;
         }
+    }
+
+    //function to add translation request
+    function addTransReq($requestorID, $srcLangID, $targetLangID, $sourceText, $comments) {
+        $tableValues = array('requestorID' => $requestorID,
+                            'sourceLanguageID' => $srcLangID,
+                            'targetLanguageID' => $targetLangID,
+                            'sourceText' => $sourceText,
+                            'commentsRequestor' => $comments,
+                            'transStatusID' => 1);
+        return $this->db->dbInsert('transReq', $tableValues);
     }
 }
 

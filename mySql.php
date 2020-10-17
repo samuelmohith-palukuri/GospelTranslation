@@ -50,7 +50,6 @@ class mySql extends Dbconfig {
         $values = substr($values, 0, -1);
         $query .= ('(' . $columns . ') VALUES ');
         $query .= ('(' . $values . ') ');
-
         $res = $this->dbQuery($query);
 
         return $res;
