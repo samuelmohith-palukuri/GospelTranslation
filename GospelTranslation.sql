@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Oct 17, 2020 at 05:07 PM
+-- Generation Time: Oct 17, 2020 at 05:23 PM
 -- Server version: 5.7.31-0ubuntu0.18.04.1
 -- PHP Version: 7.2.24-0ubuntu0.18.04.7
 
@@ -41,6 +41,15 @@ CREATE TABLE `role` (
   `roleID` int(11) NOT NULL,
   `roleName` varchar(256) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `role`
+--
+
+INSERT INTO `role` (`roleID`, `roleName`) VALUES
+(1, 'Requestor'),
+(2, 'Translator'),
+(3, 'Admin');
 
 -- --------------------------------------------------------
 
@@ -84,6 +93,17 @@ CREATE TABLE `transStatus` (
   `transStatusID` int(11) NOT NULL,
   `transStatus` varchar(256) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `transStatus`
+--
+
+INSERT INTO `transStatus` (`transStatusID`, `transStatus`) VALUES
+(1, 'New'),
+(2, 'TranslationInProgress'),
+(3, 'TranslationCompleted'),
+(4, 'TranlsationAcceptedByRequestor'),
+(5, 'TranslationRejectedByRequestor');
 
 -- --------------------------------------------------------
 
