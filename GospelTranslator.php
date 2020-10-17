@@ -27,7 +27,7 @@ class GospelTranslator {
         } else return -1;
     }
 
-    function addUser($phone, $name, $roleID, $password, $email) {
+    function addUser($table, $phone, $name, $roleID, $password, $email) {
         $userValues = array('phoneNumber' => $phone,
                         'name' => $name,
                         'roleID' => $roleID,

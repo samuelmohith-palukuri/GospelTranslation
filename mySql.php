@@ -43,8 +43,11 @@ class mySql extends Dbconfig {
         $values = '';
         foreach ($tableValues as $key => $value) {
             $columns .= ($key . ',');
+            if (!is_numeric($value)) $value = ('"' . $value . '"');
             $values .= ($value . ',');
         }
+        $columns = substr($columns, 0, -1);
+        $values = substr($values, 0, -1);
         $query .= ('(' . $columns . ') VALUES ');
         $query .= ('(' . $values . ') ');
 
