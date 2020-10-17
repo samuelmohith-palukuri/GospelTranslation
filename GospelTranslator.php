@@ -11,6 +11,10 @@ class GospelTranslator {
     public static $transStatusAccepted = 4;
     public static $transStatusRejected = 5;
 
+    public static $userRoleRequestor = 1;
+    public static $userRoleTranslator = 2;
+    public static $userRoleAdmin = 3;
+
     function __construct() {
         $this->db = new mySql();
         $this->db->dbConnect();

@@ -6,7 +6,7 @@ include 'GospelTranslator.php';
 $db = new GospelTranslator();
 
 //getting role name
-$result = $db->getRoleName(1);
+$result = $db->getRoleName(GospelTranslator::$userRoleRequestor);
 echo $result;
 echo '<br/>';
 
