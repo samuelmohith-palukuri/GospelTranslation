@@ -31,6 +31,9 @@ CREATE TABLE `language` (
   `languageName` varchar(256) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+INSERT INTO `language` (`langID`, `languageName`) VALUES
+(1, 'English');
+
 -- --------------------------------------------------------
 
 --
@@ -57,7 +60,7 @@ INSERT INTO `role` (`roleID`, `roleName`) VALUES
 -- Table structure for table `translator`
 --
 
-CREATE TABLE `translator` (
+CREATE TABLE `translatorLangMap` (
   `userID` int(11) NOT NULL,
   `langID` int(11) NOT NULL,
   `approverID` int(11) NOT NULL,
