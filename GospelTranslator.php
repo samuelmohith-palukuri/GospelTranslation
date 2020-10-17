@@ -37,6 +37,25 @@ class GospelTranslator {
         $userID = $this->db->dbInsert($table, $userValues);
         return $userID;
     }
+
+    function getUser($phone) {
+        $userFetch = $this->db->dbQuery('select * from User where phoneNumber=' . $phone);
+        if ($userFetch->num_rows > 0) {
+            $user = $userFetch->fetch_assoc();
+            return $user;
+        } else return -1;
+    }
+
+    function canAllowLogin($phone, $password) {
+        $user = $this->getUser($phone);
+        if (is_numeric($user) && $user == -1) return false;
+        else {
+            $hashedPassword = md5($password);
+            if ($user['is_active'] == TRUE && $hashedPassword == $user['password'])
+                return true;
+            else return false;
+        }
+    }
 }
 
 ?>
