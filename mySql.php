@@ -66,7 +66,14 @@ class mySql extends Dbconfig {
             $query .= ($value . ',');
         }
         $query = substr($query, 0, -1);
-        $query .= (' where ' . $updateRow['columnName'] . ' = ' . $updateRow['columnVal']);
+
+        if ($updateRow) {
+            $updateCondition = '';
+            foreach ($updateRow as $updateRowCondition)
+                $updateCondition .= (' AND ' . $updateRowCondition['columnName'] . ' = ' . $updateRowCondition['columnVal']);
+            $updateCondition = substr($updateCondition, 4);
+            $query .= (' where ' . $updateCondition);
+        }
 
         $res = $this->dbQuery($query);
 

@@ -11,8 +11,8 @@ echo $result;
 echo '<br/>';
 
 //adding user
-$result = $db->addUser(7293333328472, 'gospel translate', 1, 'testpassword', 'sldkjfs');
-echo $result;
+$resultUser = $db->addUser(rand(), 'gospel translate', 1, 'testpassword', 'sldkjfs');
+echo $resultUser;
 echo '<br/>';
 
 //checking credentials
@@ -23,7 +23,7 @@ else
 echo '<br/>block';
 
 //adding need
-$result = $db->addTransReq(1, 1, 1, "gospel translate", "my comments");
+$result = $db->addTransReq($resultUser, 1, 1, "gospel translate", "my comments");
 echo '<br/>translation request added';
 
 echo '<br/>';
@@ -48,4 +48,15 @@ echo '<br/>';
 //adding a translation
 $reqs = $db->addTranslation(1, 1, 'this is gosepl translate', 'translated', false);
 echo  'translation done';
+echo '<br/>';
+
+//adding language for a translator
+$ret = $db->addTransLang(1, 1);
+echo 'adding trans lag res = ' . $ret;
+echo '<br/>';
+
+//approving language for a translator
+$ret = $db->approveTransLang(1, $resultUser, 1);
+echo 'approving trans lag res = ' . $ret;
+echo '<br/>';
 ?>

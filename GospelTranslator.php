@@ -99,6 +99,34 @@ class GospelTranslator {
         return $languages;
     }
 
+    //function to add proficient languages to translator
+    function addTransLang($translatorID, $langID) {
+        $query = 'select * from translatorLangMap where userID=' . $translatorID . ' and langID=' . $langID;
+        $transLangRes = $this->db->dbQuery($query);
+        if ($transLangRes->num_rows > 0) return -1;
+
+        $tableValues = array('userID' => $translatorID,
+                            'langID' => $langID,
+                            'approvalStatus' => 0);
+        return $this->db->dbInsert('translatorLangMap', $tableValues);
+    }
+
+    //function to approve a proficient language to translator
+    function approveTransLang($approverID, $translatorID, $langID) {
+        $role = $this->getRole($approverID);
+        if ($role != GospelTranslator::$userRoleAdmin) return -1;
+        if (!$translatorID) return -1;
+
+        $tableValues = array('approverID' => $approverID,
+                            'approvalStatus' => true);
+
+        $updateRow = array(array('columnName' => 'userID',
+                                 'columnVal' => $translatorID),
+                           array('columnName' => 'langID',
+                                'columnVal' => $langID));
+        return $this->db->dbUpdate('translatorLangMap', $updateRow, $tableValues);
+    }
+
     //function to get the translation requests
     function getTransReq($translatorID) {
         $query = 'select * from translatorLangMap where userID=' . $translatorID . ' and approvalStatus=true';
@@ -134,7 +162,7 @@ class GospelTranslator {
             $tableValues['transStatusID'] = GospelTranslator::$transStatusCompleted;
         else $tableValues['transStatusID'] = GospelTranslator::$transStatusInProgress;
 
-        return $this->db->dbUpdate('transReq', array('columnName' => 'transReqID', 'columnVal' => $transReqID), $tableValues);
+        return $this->db->dbUpdate('transReq', array(array('columnName' => 'transReqID', 'columnVal' => $transReqID)), $tableValues);
     }
 }
 
