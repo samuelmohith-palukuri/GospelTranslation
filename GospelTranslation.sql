@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Oct 17, 2020 at 05:23 PM
+-- Generation Time: Oct 18, 2020 at 07:11 AM
 -- Server version: 5.7.31-0ubuntu0.18.04.1
 -- PHP Version: 7.2.24-0ubuntu0.18.04.7
 
@@ -31,8 +31,17 @@ CREATE TABLE `language` (
   `languageName` varchar(256) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `language`
+--
+
 INSERT INTO `language` (`langID`, `languageName`) VALUES
-(1, 'English');
+(1, 'English'),
+(2, 'Hindi'),
+(3, 'Kannada'),
+(4, 'Malayalam'),
+(5, 'Tamil'),
+(6, 'Telugu');
 
 -- --------------------------------------------------------
 
@@ -57,13 +66,13 @@ INSERT INTO `role` (`roleID`, `roleName`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `translator`
+-- Table structure for table `translatorLangMap`
 --
 
 CREATE TABLE `translatorLangMap` (
   `userID` int(11) NOT NULL,
   `langID` int(11) NOT NULL,
-  `approverID` int(11),
+  `approverID` int(11) DEFAULT NULL,
   `approvalStatus` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -74,7 +83,7 @@ CREATE TABLE `translatorLangMap` (
 --
 
 CREATE TABLE `transReq` (
-  `transReqID` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `transReqID` int(11) NOT NULL,
   `requestorID` int(11) NOT NULL,
   `translatorID` int(11) DEFAULT NULL,
   `sourceLanguageID` int(11) NOT NULL,
@@ -115,7 +124,7 @@ INSERT INTO `transStatus` (`transStatusID`, `transStatus`) VALUES
 --
 
 CREATE TABLE `User` (
-  `userID` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `userID` int(11) NOT NULL,
   `phoneNumber` bigint(20) NOT NULL,
   `name` varchar(256) NOT NULL,
   `roleID` int(11) NOT NULL DEFAULT '0',
@@ -124,6 +133,13 @@ CREATE TABLE `User` (
   `emailID` varchar(256) DEFAULT NULL,
   `createdTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `User`
+--
+
+INSERT INTO `User` (`userID`, `phoneNumber`, `name`, `roleID`, `password`, `is_active`, `emailID`, `createdTime`) VALUES
+(1, 999999999, 'admin', 3, '21232f297a57a5a743894a0e4a801fc3', 1, 'admin@gospeltranslate.com', '2020-10-18 01:40:25');
 
 --
 -- Indexes for dumped tables
@@ -145,6 +161,7 @@ ALTER TABLE `role`
 -- Indexes for table `transReq`
 --
 ALTER TABLE `transReq`
+  ADD PRIMARY KEY (`transReqID`),
   ADD KEY `transStatusForeignKey` (`transStatusID`),
   ADD KEY `requestorForeignKey` (`requestorID`),
   ADD KEY `translatorForeignKey` (`translatorID`),
@@ -161,9 +178,24 @@ ALTER TABLE `transStatus`
 -- Indexes for table `User`
 --
 ALTER TABLE `User`
+  ADD PRIMARY KEY (`userID`),
   ADD UNIQUE KEY `phoneNumber` (`phoneNumber`),
   ADD KEY `roleForeignKey` (`roleID`);
 
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `transReq`
+--
+ALTER TABLE `transReq`
+  MODIFY `transReqID` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `User`
+--
+ALTER TABLE `User`
+  MODIFY `userID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- Constraints for dumped tables
 --
