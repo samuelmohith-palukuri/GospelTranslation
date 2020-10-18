@@ -1,7 +1,7 @@
 <?php
 
 
-include 'GospelTranslator.php';
+include 'php/GospelTranslator.php';
 
 $db = new GospelTranslator();
 
