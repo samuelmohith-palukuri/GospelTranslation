@@ -11,12 +11,13 @@ echo $result;
 echo '<br/>';
 
 //adding user
-$resultUser = $db->addUser(rand(), 'gospel translate', 1, 'testpassword', 'sldkjfs');
-echo $resultUser;
+$userPhone = rand();
+$resultUser = $db->addUser($userPhone, 'gospel translate', 'testpassword', 'sldkjfs');
+echo 'Created User: ' . $resultUser;
 echo '<br/>';
 
 //checking credentials
-$result = $db->canAllowLogin(7293333328472, 'testpassword');
+$result = $db->canAllowLogin($userPhone, 'testpassword');
 if ($result)
 echo '<br/>login';
 else
@@ -33,12 +34,14 @@ echo '<br/>';
 
 //getting all languages
 $langs = $db->getLang();
+echo "languages<br/>";
 foreach($langs as $lang){
-echo "find";
-echo $lang['langID'] . ' - ' . $lang['languageName'];
+echo "find ";
+echo $lang['langID'] . ' - ' . $lang['languageName'] . '<br/>';
 }
 
 //getting trans needs for a translator
+echo "<br/> getting trans reqs";
 $reqs = $db->getTransReq(1);
 foreach($reqs as $req) {
 echo $req['sourceText'];
@@ -51,7 +54,7 @@ echo  'translation done';
 echo '<br/>';
 
 //adding language for a translator
-$ret = $db->addTransLang(1, 1);
+$ret = $db->addTransLang($resultUser, 1);
 echo 'adding trans lag res = ' . $ret;
 echo '<br/>';
 

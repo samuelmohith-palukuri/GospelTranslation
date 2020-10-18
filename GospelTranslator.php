@@ -43,10 +43,10 @@ class GospelTranslator {
     }
 
     //function to add a user to system
-    function addUser($phone, $name, $roleID, $password, $email) {
+    function addUser($phone, $name, $password, $email) {
         $userValues = array('phoneNumber' => $phone,
                         'name' => $name,
-                        'roleID' => $roleID,
+                        'roleID' => GospelTranslator::$userRoleRequestor,
                         'password' => md5($password),
                         'emailID' => $email);
 
@@ -116,6 +116,11 @@ class GospelTranslator {
         $role = $this->getRole($approverID);
         if ($role != GospelTranslator::$userRoleAdmin) return -1;
         if (!$translatorID) return -1;
+
+        $tableValues = array('roleID' => GospelTranslator::$userRoleTranslator);
+        $updateRow = array(array('columnName' => 'userID',
+                                'columnVal' => $translatorID));
+        $this->db->dbUpdate('User', $updateRow, $tableValues);
 
         $tableValues = array('approverID' => $approverID,
                             'approvalStatus' => true);

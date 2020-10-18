@@ -52,6 +52,9 @@ class mySql extends Dbconfig {
         $query .= ('(' . $values . ') ');
         $res = $this->dbQuery($query);
 
+        if ($res > 0) $res = $this->dbConnection->insert_id;
+        else return -1;
+
         return $res;
     }
 
